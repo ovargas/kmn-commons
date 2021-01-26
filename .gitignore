@@ -1,0 +1,30 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+.coverage*
+coverage.*
+
+examples/__debug_bin
+release/
+test-artifacts/
+result.json
+*report.json
+__debug_bin
+examples/resources/bulk
+examples/resources/prod.yaml
+
+.vscode/
+.idea/
+gosec.json
+
+.DS_Store
+scratchpad/
+# Dependency directories (remove the comment below to include it)
+# vendor/

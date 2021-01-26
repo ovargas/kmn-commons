@@ -1,0 +1,47 @@
+POST http://localhost:8080/ms-auth.dev/api/oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+username=tony.stark@gmail.com&password=123456&grant_type=password&client_id=platform-services&client_secret=secret
+
+> {% client.global.set("token", response.body.access_token); %}
+
+###
+POST http://localhost:8080/ms-auth.dev/api/oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=platform-services&client_secret=secret
+
+> {% client.global.set("token", response.body.access_token); %}
+
+###
+GET http://localhost:3000/api/dummies/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+POST http://localhost:3000/api/dummies
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Acme Inc",
+  "companyId": 3,
+  "documentTitle": "NDA",
+  "sourceType": "FPP",
+  "fileName": "nda.docx",
+  "mediaType": "application/word",
+  "content": "SGVsbG8="
+}
+
+###
+DELETE http://localhost:3000/api/dummies/1
+
+###
+DELETE http://localhost:3000/api/dummies/one
+
+###
+PATCH http://localhost:3000/api/dummies/1
+Content-Type: application/json
+
+{
+}

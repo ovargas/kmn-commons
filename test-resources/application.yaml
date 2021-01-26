@@ -1,0 +1,32 @@
+dummy:
+  value: hello default profile
+  secondValue: 1
+
+server:
+  port: 3000
+
+security:
+  oauth2:
+    client:
+      clientId: platform-services
+      clientSecret: secret
+      accessTokenUri: http://127.0.0.1:8080/ms-auth/api/oauth/token
+      grantType: client_credentials
+    resource:
+      jwt:
+        keyValue: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy9CIGyYbSQ+cx3JHwQIW
+          kJbDaT6D+wLHdYVVpDBDyRSuZmuDL4h8HxkYa5fzW2PHq1vPxaGRuSWHNqu4GHSZ
+          fjjB7lrOuLMu8aw3NL9PDR6l4QUDG7JwnLFLCiQo8cAhCxr98mV1Muv/CY8bWS3y
+          8ojroeDLuSUWy5BVcqto8oCKQghe6Re0o7y21dD64IivYNKtDOLscrbZr3t7FtoA
+          Ll7jQJtaFVtqDVEAFyklbrNQAb/9xQOPydOyR8hGmYcfYSkwpR5B8GAVDgyRhqxB
+          r/grqeSOvDKxCI0NNzivkHwE3mtzPqFAwfyyCEhZkGVQdBkT3LYjxN6sMxwsjqI7
+          wwIDAQAB
+          -----END PUBLIC KEY-----
+
+datasource:
+  default:
+    connectionString: ${DB_USER:root}:${DB_PASSWORD:password}@tcp(${DB_HOST:localhost}:3306)/insights?multiStatements=true&parseTime=true
+    driverName: mysql
+    migrationPath: ./resources/db/migration

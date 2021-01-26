@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  db:
+    image: percona:5.7.25
+    environment:
+      MYSQL_DATABASE: 'localdb'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '13000:3306'
