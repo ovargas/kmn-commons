@@ -3,16 +3,16 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/ovargasmahisoft/kmn-commons/examples/internal/dtos"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web"
+	web2 "github.com/ovargasmahisoft/kmn-commons/web"
 	"net/http"
 	"strconv"
 )
 
 type DummyService interface {
-	Get(ctx *web.Context, id int64) (*dtos.Dummy, error)
-	Create(ctx *web.Context, request dtos.DummyCreateRequest) (*dtos.Dummy, error)
-	Patch(ctx *web.Context, id int64, request dtos.DummyPatchRequest) (*dtos.Dummy, error)
-	Delete(ctx *web.Context, id int64) error
+	Get(ctx *web2.Context, id int64) (*dtos.Dummy, error)
+	Create(ctx *web2.Context, request dtos.DummyCreateRequest) (*dtos.Dummy, error)
+	Patch(ctx *web2.Context, id int64, request dtos.DummyPatchRequest) (*dtos.Dummy, error)
+	Delete(ctx *web2.Context, id int64) error
 }
 
 type DummyController struct {

@@ -2,10 +2,10 @@ package services
 
 import (
 	"context"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/async"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/bus"
+	async2 "github.com/ovargasmahisoft/kmn-commons/async"
+	bus2 "github.com/ovargasmahisoft/kmn-commons/bus"
 )
 
 type Publisher interface {
-	PublishAsync(ctx context.Context, event bus.Event) async.Action
+	PublishAsync(ctx context.Context, event bus2.Event) async2.Action
 }

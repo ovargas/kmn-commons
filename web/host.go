@@ -3,7 +3,7 @@ package web
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web/errors"
+	errors2 "github.com/ovargasmahisoft/kmn-commons/web/errors"
 	"net/http"
 )
 
@@ -48,7 +48,7 @@ func (h Host) Use(middleware ...gin.HandlerFunc) Host {
 }
 
 func (h Host) UseDefaultErrorHandler() Host {
-	h.ErrorHandlers(errors.DefaultErrorHandler)
+	h.ErrorHandlers(errors2.DefaultErrorHandler)
 	return h
 }
 
@@ -65,7 +65,7 @@ func (h Host) ErrorHandlers(errorHandler ...ErrorHandler) {
 			}
 		}
 
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, &errors.ApiError{
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, &errors2.ApiError{
 			Title: http.StatusText(http.StatusInternalServerError),
 		})
 	})

@@ -2,9 +2,9 @@ package web
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/config"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web/authorization"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web/authorization/jwt"
+	config2 "github.com/ovargasmahisoft/kmn-commons/config"
+	authorization2 "github.com/ovargasmahisoft/kmn-commons/web/authorization"
+	jwt2 "github.com/ovargasmahisoft/kmn-commons/web/authorization/jwt"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"path"
@@ -14,7 +14,7 @@ import (
 
 func init() {
 	_, filename, _, _ := runtime.Caller(0)
-	os.Setenv(config.EnvConfigPath, path.Join(path.Dir(filename), "../../")+"/test-resources/")
+	os.Setenv(config2.EnvConfigPath, path.Join(path.Dir(filename), "../")+"/test-resources/")
 }
 
 type DummyController struct {
@@ -34,12 +34,12 @@ func TestWebHostBuilder(t *testing.T) {
 
 	host := NewDefault().
 		Use(gin.Logger()).
-		Use(jwt.New().AuthenticationHandler).
+		Use(jwt2.New().AuthenticationHandler).
 		UseDefaultErrorHandler()
 
 	host.
 		RegisterPath("/engine").
-		Use(authorization.RequireAuthenticationHandler).
+		Use(authorization2.RequireAuthenticationHandler).
 		RegisterController(
 			&DummyController{},
 		)

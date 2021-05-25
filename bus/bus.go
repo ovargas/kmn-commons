@@ -2,7 +2,7 @@ package bus
 
 import (
 	"context"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/async"
+	async2 "github.com/ovargasmahisoft/kmn-commons/async"
 	"reflect"
 	"strings"
 	"sync"
@@ -47,19 +47,19 @@ func (l ApplicationBus) Subscribe(eventType reflect.Type, handler ...Handler) {
 	}
 }
 
-func (l ApplicationBus) PublishAsync(ctx context.Context, event Event) async.Action {
-	var futures []async.Action
+func (l ApplicationBus) PublishAsync(ctx context.Context, event Event) async2.Action {
+	var futures []async2.Action
 	if value, ok := l[reflect.TypeOf(event)]; ok {
 		for _, h := range value {
 			h := h
-			future := async.ExecAction(func() error {
+			future := async2.ExecAction(func() error {
 				return h(ctx, event)
 			})
 			futures = append(futures, future)
 		}
 	}
 
-	return async.ExecAction(func() error {
+	return async2.ExecAction(func() error {
 
 		var errors []error
 

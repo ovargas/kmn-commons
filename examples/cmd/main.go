@@ -2,31 +2,31 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	bus2 "github.com/ovargasmahisoft/kmn-commons/bus"
 	"github.com/ovargasmahisoft/kmn-commons/examples/internal/controllers"
 	"github.com/ovargasmahisoft/kmn-commons/examples/internal/events"
 	"github.com/ovargasmahisoft/kmn-commons/examples/internal/services"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/bus"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/migration/mysql"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web/authorization"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web/authorization/jwt"
+	mysql2 "github.com/ovargasmahisoft/kmn-commons/migration/mysql"
+	web2 "github.com/ovargasmahisoft/kmn-commons/web"
+	authorization2 "github.com/ovargasmahisoft/kmn-commons/web/authorization"
+	jwt2 "github.com/ovargasmahisoft/kmn-commons/web/authorization/jwt"
 	"reflect"
 )
 
 func main() {
 
-	bus := bus.DefaultBus()
+	bus := bus2.DefaultBus()
 	bus.Subscribe(reflect.TypeOf(events.DummyCreatedEvent{}), events.OnDummyCreated)
 
-	mysql.MigrateMySql("default")
-	host := web.NewDefault().
+	mysql2.MigrateMySql("default")
+	host := web2.NewDefault().
 		Use(gin.Logger()).
 		UseDefaultErrorHandler().
-		Use(jwt.New().AuthenticationHandler)
+		Use(jwt2.New().AuthenticationHandler)
 
 	host.
 		RegisterPath("/api").
-		Use(authorization.RequireAuthenticationHandler).
+		Use(authorization2.RequireAuthenticationHandler).
 		RegisterController(
 			controllers.NewDummyController(services.NewDummyService(bus)),
 		)

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/config"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web/authorization"
+	config2 "github.com/ovargasmahisoft/kmn-commons/config"
+	authorization2 "github.com/ovargasmahisoft/kmn-commons/web/authorization"
 	"strings"
 )
 
@@ -18,7 +18,7 @@ func (h Handler) AuthenticationHandler(ctx *gin.Context) {
 	stringToken := ctx.GetHeader("Authorization")
 	bearer := strings.Split(stringToken, " ")
 
-	var principal = authorization.Anonymous()
+	var principal = authorization2.Anonymous()
 
 	if len(bearer) == 2 {
 		if token, _ := jwt.Parse(bearer[1], h.verifyToken); token != nil {
@@ -37,17 +37,17 @@ func (h Handler) AuthenticationHandler(ctx *gin.Context) {
 			clientID, _ := claims["client_id"].(string)
 
 			if userName == "" || domain == "" {
-				principal = authorization.NewPrincipal(roles,
-					authorization.NewClientCredentialsIdentity(clientID))
+				principal = authorization2.NewPrincipal(roles,
+					authorization2.NewClientCredentialsIdentity(clientID))
 			} else {
-				principal = authorization.NewPrincipal(roles,
-					authorization.NewUserIdentity(userName, domain, clientID))
+				principal = authorization2.NewPrincipal(roles,
+					authorization2.NewUserIdentity(userName, domain, clientID))
 			}
 
 		}
 	}
 
-	ctx.Set(authorization.PrincipalContextName, principal)
+	ctx.Set(authorization2.PrincipalContextName, principal)
 	ctx.Next()
 }
 
@@ -66,7 +66,7 @@ func (h Handler) verifyToken(token *jwt.Token) (interface{}, error) {
 
 func New() Handler {
 	var key *string
-	err := config.Config().UnmarshalKey("security.oauth2.resource.jwt.keyValue", &key)
+	err := config2.Config().UnmarshalKey("security.oauth2.resource.jwt.keyValue", &key)
 	if err != nil {
 		panic(fmt.Errorf("error loading configuration [security.oauth2.resource.jwt.keyValue]: %v", err))
 	}

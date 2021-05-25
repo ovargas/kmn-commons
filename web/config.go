@@ -1,7 +1,7 @@
 package web
 
 import (
-	"github.com/ovargasmahisoft/kmn-commons/pkg/config"
+	config2 "github.com/ovargasmahisoft/kmn-commons/config"
 	"sync"
 )
 
@@ -18,7 +18,7 @@ var (
 func Config() Server {
 	onceConfiguration.Do(func() {
 		c := &Server{}
-		applicationConfig := config.Config()
+		applicationConfig := config2.Config()
 		if err := applicationConfig.UnmarshalKey("server", c); err != nil {
 			panic(err)
 		}

@@ -19,7 +19,7 @@ type Dummy struct {
 
 func init() {
 	_, filename, _, _ := runtime.Caller(0)
-	os.Setenv(EnvConfigPath, path.Join(path.Dir(filename), "../../")+"/test-resources/")
+	os.Setenv(EnvConfigPath, path.Join(path.Dir(filename), "..")+"/test-resources/")
 	os.Setenv(EnvSpringCloudConfigUri, "http://localhost:8888/config")
 	os.Setenv("DB_HOST", "127.0.0.1")
 }
@@ -73,5 +73,5 @@ func TestUnmarshallConfigurationApplyReplaceEnv(t *testing.T) {
 	v := config.GetString("datasource.default.connectionString")
 
 	assert.NotNil(t, v)
-	assert.Equal(t, "root:password@tcp(127.0.0.1:3306)/insights?multiStatements=true&parseTime=true", v)
+	assert.Equal(t, "root:password@tcp(127.0.0.1:3306)/localdb?multiStatements=true&parseTime=true", v)
 }

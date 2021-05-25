@@ -3,10 +3,10 @@ package events
 import (
 	"context"
 	"fmt"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/bus"
+	bus2 "github.com/ovargasmahisoft/kmn-commons/bus"
 )
 
-func OnDummyCreated(ctx context.Context, event bus.Event) error {
+func OnDummyCreated(ctx context.Context, event bus2.Event) error {
 	fmt.Printf("Dummy %v created\n", event)
 	return nil
 }

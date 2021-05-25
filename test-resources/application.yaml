@@ -27,6 +27,6 @@ security:
 
 datasource:
   default:
-    connectionString: ${DB_USER:root}:${DB_PASSWORD:password}@tcp(${DB_HOST:localhost}:3306)/insights?multiStatements=true&parseTime=true
+    connectionString: ${DB_USER:root}:${DB_PASSWORD:password}@tcp(${DB_HOST:localhost}:3306)/localdb?multiStatements=true&parseTime=true
     driverName: mysql
     migrationPath: ./resources/db/migration

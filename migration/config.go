@@ -1,7 +1,7 @@
 package migration
 
 import (
-	"github.com/ovargasmahisoft/kmn-commons/pkg/config"
+	config2 "github.com/ovargasmahisoft/kmn-commons/config"
 	"sync"
 )
 
@@ -21,7 +21,7 @@ var (
 func Config() DatasourceConfig {
 	once.Do(func() {
 		ds := &map[string]Datasource{}
-		config.Config().UnmarshalKey("datasource", ds)
+		config2.Config().UnmarshalKey("datasource", ds)
 		datasourceConfig = *ds
 	})
 	return datasourceConfig

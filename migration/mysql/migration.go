@@ -6,11 +6,11 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/migration"
+	migration2 "github.com/ovargasmahisoft/kmn-commons/migration"
 )
 
 func MigrateMySql(datasourceName string) {
-	datasource, ok := migration.Config()[datasourceName]
+	datasource, ok := migration2.Config()[datasourceName]
 
 	if !ok {
 		panic(fmt.Errorf("missing configuration [datasource.%s]", datasourceName))
@@ -19,7 +19,7 @@ func MigrateMySql(datasourceName string) {
 	MigrateMySqlWithDatasource(datasource)
 }
 
-func MigrateMySqlWithDatasource(datasource migration.Datasource) {
+func MigrateMySqlWithDatasource(datasource migration2.Datasource) {
 	if db, err := sql.Open(datasource.DriverName, datasource.ConnectionString); err == nil {
 		defer db.Close()
 		driver, err := mysql.WithInstance(db, &mysql.Config{})

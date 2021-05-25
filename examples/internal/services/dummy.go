@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/ovargasmahisoft/kmn-commons/examples/internal/dtos"
 	"github.com/ovargasmahisoft/kmn-commons/examples/internal/events"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web"
-	"github.com/ovargasmahisoft/kmn-commons/pkg/web/errors"
+	web2 "github.com/ovargasmahisoft/kmn-commons/web"
+	errors2 "github.com/ovargasmahisoft/kmn-commons/web/errors"
 )
 
 type dummyService struct {
@@ -18,14 +18,14 @@ func NewDummyService(publisher Publisher) *dummyService {
 	}
 }
 
-func (d dummyService) Get(ctx *web.Context, id int64) (*dtos.Dummy, error) {
+func (d dummyService) Get(ctx *web2.Context, id int64) (*dtos.Dummy, error) {
 	return &dtos.Dummy{
 		ID:    id,
 		Title: fmt.Sprintf("Hello %s", *ctx.Principal().Identity().Name()),
 	}, nil
 }
 
-func (d dummyService) Create(ctx *web.Context, request dtos.DummyCreateRequest) (*dtos.Dummy, error) {
+func (d dummyService) Create(ctx *web2.Context, request dtos.DummyCreateRequest) (*dtos.Dummy, error) {
 
 	dummy := dtos.Dummy{
 		ID:        1,
@@ -36,15 +36,15 @@ func (d dummyService) Create(ctx *web.Context, request dtos.DummyCreateRequest) 
 	return &dummy, nil
 }
 
-func (d dummyService) Patch(ctx *web.Context, id int64, request dtos.DummyPatchRequest) (*dtos.Dummy, error) {
-	return nil, errors.NotImplementedError{
+func (d dummyService) Patch(ctx *web2.Context, id int64, request dtos.DummyPatchRequest) (*dtos.Dummy, error) {
+	return nil, errors2.NotImplementedError{
 		Method:    "Patch",
 		Interface: "dummyService",
 	}
 }
 
-func (d dummyService) Delete(ctx *web.Context, id int64) error {
-	return errors.NotImplementedError{
+func (d dummyService) Delete(ctx *web2.Context, id int64) error {
+	return errors2.NotImplementedError{
 		Interface: "dummyService",
 		Method:    "Delete",
 	}
